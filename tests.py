@@ -1,7 +1,7 @@
-import pygame
 import socket
 import pickle
-from pablo import netWorker
+# import pygame
+# from pablo import netWorker
 
 def testserver():
 
@@ -25,5 +25,5 @@ def testserver():
     print(pickle.loads(c.recv(100)))
     print("Points recieved")
 
-
+testserver()
 testserver()
