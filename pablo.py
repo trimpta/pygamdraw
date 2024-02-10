@@ -40,8 +40,6 @@ class netWorker:
         if data == 'clear':
             screen.fill(self.bg)
 
-        elif data == 'null':
-            return
         else:
             color, pos, radius = data
             pygame.draw.circle(screen, color, pos, radius)
