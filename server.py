@@ -24,9 +24,8 @@ def handleClient(conn,addr):
             conn.close
             print("Disconnected")
             break
-        elif unPoint == 'null':
-            continue
-            
+
+
         for player,addr in players:
             player.send(point)
             print(unPoint, 'send to:', addr)
