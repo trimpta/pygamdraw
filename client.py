@@ -9,6 +9,7 @@ worker = netWorker()
 
 
 radius = 20
+isMouseDown = False
 print("Entering loop")
 while True:
     
@@ -23,14 +24,22 @@ while True:
 
             if event.key == pygame.K_SPACE:
                 worker.clear()
+            
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print("Down")
+            isMouseDown = True
 
+        if event.type == pygame.MOUSEBUTTONUP:
+            print("Up")
+            isMouseDown = False
+        
         if event.type == pygame.MOUSEWHEEL:
             radius += event.y
             radius = 1 if radius<1 else radius
             print('radius set to ', radius)
 
 
-    if pygame.mouse.get_pressed()[0]:
+    if isMouseDown:
         print("Transmitting...")
         worker.send(radius=radius)
     else:
