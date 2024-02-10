@@ -1,16 +1,13 @@
 import pygame
-import socket
 import pickle
 from pablo import netWorker
 
 pygame.init()
-screen = pygame.display.set_mode((800,600))
+screen = pygame.display.set_mode((300,300))
 worker = netWorker()
 
 
 radius = 20
-isMouseDown = False
-print("Entering loop")
 while True:
     
     for event in pygame.event.get():
@@ -24,14 +21,6 @@ while True:
 
             if event.key == pygame.K_SPACE:
                 worker.clear()
-            
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            print("Down")
-            isMouseDown = True
-
-        if event.type == pygame.MOUSEBUTTONUP:
-            print("Up")
-            isMouseDown = False
         
         if event.type == pygame.MOUSEWHEEL:
             radius += event.y
@@ -39,8 +28,7 @@ while True:
             print('radius set to ', radius)
 
 
-    if isMouseDown:
-        print("Transmitting...")
+    if pygame.mouse.get_pressed()[0]:
         worker.send(radius=radius)
     else:
         worker.null()

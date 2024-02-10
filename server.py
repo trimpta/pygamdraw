@@ -11,31 +11,38 @@ server.settimeout(500)
 server.listen()
 print('listening...')
 
-players = []
+players = {}
+id = 0
 
-def handleClient(conn,addr):
+def handleClient(conn,id):
     while True:
-
-        point = conn.recv(1000)
-        unPoint = pickle.loads(point)
-        print(unPoint, 'recieved from', addr)
+        try:
+            point = conn.recv(4096)
+            unPoint = pickle.loads(point)
+        except Exception as e:
+            print(f"Error from {id}: {e}")
+            continue
         
         if unPoint == 'stop':
             conn.close
             print("Disconnected")
             break
 
+        for i in players:
+            players[i][1].append(unPoint)
 
-        for player,addr in players:
-            player.send(point)
-            print(unPoint, 'send to:', addr)
+        conn.send(pickle.dumps(players[id][1]))
+        print(f"id {id}, data {players[id][1]}")
+        players[id][1] = []
+
 
 while True:
     conn,addr = server.accept()
-    players.append((conn,addr))
-    print(f"IP : {addr}")
+    players[id] = [(conn,addr),[]]
+    print(f"{id} IP : {addr}")
 
-    thread = threading.Thread(target=handleClient,args=(conn,addr))  
+    thread = threading.Thread(target=handleClient,args=(conn,id))  
     thread.start()
+    id +=1
 
 
