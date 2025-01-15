@@ -13,6 +13,9 @@ print('listening...')
 
 players = {}
 id = 0
+lock = threading.Lock()
+
+    
 
 def handleClient(conn,id):
     while True:
@@ -35,11 +38,12 @@ def handleClient(conn,id):
         for i in players:
             players[i][1].append(unPoint)
         
+        
         data = pickle.dumps(players[id][1])
-        # conn.send(pickle.dumps(sys.getsizeof(data)))
-        conn.send(data)
-        print(f"id {id}, data {players[id][1]}")
         players[id][1] = []
+
+        conn.send(data)
+        # print(f"id {id}, data {players[id][1]}")
 
 
 while True:

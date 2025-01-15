@@ -42,11 +42,11 @@ class netWorker:
             if i == 'clear':
                 print("cleargot")
                 screen.fill(self.bg)
-                continue
+                return
             elif i == 'c':
                 self.clear()
                 self.bg = (randint(0,255),randint(0,255),randint(0,255))
-                continue
+                return
             elif i == '':
                 continue
             else:
