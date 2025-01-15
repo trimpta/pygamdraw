@@ -2,6 +2,7 @@ import socket
 import pickle
 import pygame
 import pickle
+from random import randint
 
 
 
@@ -32,23 +33,31 @@ class netWorker:
     def drawpoints(self, screen):
 
         try:
-            data = pickle.loads(self.s.recv(4096))
-        except Exception as e:
+            size = pickle.loads(self.s.recv(1024))
+            data = pickle.loads(self.s.recv(size))
+        except Exception as e:  
             print(f"Invalid data {e}")
             return
 
         for i in data:
             if i == 'clear':
+                print("cleargot")
                 screen.fill(self.bg)
-            elif i == 'null':
+                continue
+            elif i == 'c':
+                self.clear()
+                self.bg = (randint(0,255),randint(0,255),randint(0,255))
+                continue
+            elif i == '':
                 continue
             else:
                 color, pos, radius = i
                 pygame.draw.circle(screen, color, pos, radius)
 
     def null(self):
-        self.s.send(pickle.dumps('null'))
+        self.s.send(pickle.dumps(''))
 
     def clear(self):
         self.s.send(pickle.dumps('clear'))
+        print("clearsent")
 

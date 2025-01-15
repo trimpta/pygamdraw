@@ -3,8 +3,8 @@ import pickle
 from pablo import netWorker
 
 pygame.init()
-screen = pygame.display.set_mode((300,300))
-worker = netWorker()
+screen = pygame.display.set_mode((800,600))
+worker = netWorker('localhost',5555)
 
 
 radius = 20
@@ -21,6 +21,10 @@ while True:
 
             if event.key == pygame.K_SPACE:
                 worker.clear()
+
+            if event.key == pygame.K_LSHIFT:
+                worker.s.send(pickle.dumps("c"))
+                print("C")
         
         if event.type == pygame.MOUSEWHEEL:
             radius += event.y

@@ -1,7 +1,7 @@
 import socket
 import pickle
 import threading
-import os
+import sys
 
 host,port = 'localhost', 5555
 
@@ -17,21 +17,27 @@ id = 0
 def handleClient(conn,id):
     while True:
         try:
-            point = conn.recv(4096)
+            point = conn.recv(1024)
             unPoint = pickle.loads(point)
         except Exception as e:
-            print(f"Error from {id}: {e}")
-            continue
+            print(f"disconnecting {id}: {e}")
+            conn.close
+            break
         
+
         if unPoint == 'stop':
             conn.close
+            players.pop(id)
             print("Disconnected")
             break
 
+
         for i in players:
             players[i][1].append(unPoint)
-
-        conn.send(pickle.dumps(players[id][1]))
+        
+        data = pickle.dumps(players[id][1])
+        conn.send(len(data))
+        conn.send(data)
         print(f"id {id}, data {players[id][1]}")
         players[id][1] = []
 
