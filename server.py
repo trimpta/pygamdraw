@@ -36,7 +36,7 @@ def handleClient(conn,id):
             players[i][1].append(unPoint)
         
         data = pickle.dumps(players[id][1])
-        conn.send(len(data))
+        # conn.send(pickle.dumps(sys.getsizeof(data)))
         conn.send(data)
         print(f"id {id}, data {players[id][1]}")
         players[id][1] = []

@@ -28,13 +28,12 @@ class netWorker:
         pos = pygame.mouse.get_pos()
         point = (color, pos, radius)
         self.s.send(pickle.dumps(point))
-        print('sent.')
 
     def drawpoints(self, screen):
 
         try:
-            size = pickle.loads(self.s.recv(1024))
-            data = pickle.loads(self.s.recv(size))
+            # size = pickle.loads(self.s.recv(1024))
+            data = pickle.loads(self.s.recv(16384))
         except Exception as e:  
             print(f"Invalid data {e}")
             return
