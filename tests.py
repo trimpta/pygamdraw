@@ -1,3 +1,5 @@
+#Mostly useless, made to quickly diagnose changes to server without having to do much fiddling with guis
+
 import socket
 import pickle
 # import pygame

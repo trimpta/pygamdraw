@@ -3,7 +3,7 @@ import pickle
 import threading
 import sys
 
-host,port = 'localhost', 5555
+host,port = '0.0.0.0', 55683
 
 server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 server.bind((host,port))

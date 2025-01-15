@@ -1,10 +1,11 @@
 import pygame
 import pickle
 from pablo import netWorker
+from server_address import address, port
 
 pygame.init()
 screen = pygame.display.set_mode((800,600))
-worker = netWorker('localhost',5555)
+worker = netWorker(address, port)
 
 
 radius = 20

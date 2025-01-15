@@ -10,7 +10,7 @@ class netWorker:
     
     # points = []
 
-    def __init__(self, host:str = 'localhost', port:int = 5555):
+    def __init__(self, host:str = 'localhost', port:int = 55683):
 
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
