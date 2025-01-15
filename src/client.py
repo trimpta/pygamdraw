@@ -1,6 +1,6 @@
 import pygame
 import pickle
-from pablo import netWorker
+from src.classes import netWorker
 from server_address import address, port
 
 pygame.init()
